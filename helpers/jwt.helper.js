@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-// const { setJWT, getJWT } = require("./redis.helper");
-// const { storeUserRefreshJWT } = require("../model/user/User.model");
+const { setJWT, getJWT } = require("./redis.helper");
+const { storeUserRefreshJWT } = require("../model/user/User.model");
 // const { token } = require("morgan");
 
 const crateAccessJWT = async (email, _id) => {
@@ -9,7 +9,7 @@ const crateAccessJWT = async (email, _id) => {
       expiresIn: "1d", //change this to 15m
     });
 
-    // await setJWT(accessJWT, _id);
+    await setJWT(accessJWT, _id);
 
     return Promise.resolve(accessJWT);
   } catch (error) {
@@ -23,7 +23,7 @@ const crateRefreshJWT = async (email, _id) => {
       expiresIn: "30d",
     });
 
-    // await storeUserRefreshJWT(_id, refreshJWT);
+    await storeUserRefreshJWT(_id, refreshJWT);
 
     return Promise.resolve(refreshJWT);
   } catch (error) {
