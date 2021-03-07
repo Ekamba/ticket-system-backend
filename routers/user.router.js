@@ -41,7 +41,6 @@ const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 
 // Get user profile router
 // router.get("/", userAuthorization, async (req, res) => {
-// router.get("/", async (req, res) => {
 //   //this data coming form database
 //   const _id = req.userId;
 
@@ -123,47 +122,50 @@ router.post("/", async (req, res) => {
   }
 });
 
-//User sign in Router
-// router.post("/login", async (req, res) => {
-//   console.log(req.body);
+//User signIn Router
+router.post("/login", async (req, res) => {
+  console.log(req.body);
 
-//   const { email, password } = req.body;
+  const { email, password } = req.body;
 
-//   if (!email || !password) {
-//     return res.json({ status: "error", message: "Invalid form submition!" });
-//   }
+  if (!email || !password) {
+    return res.json({
+      status: "error",
+      message: "please provide email and password!",
+    });
+  }
 
-//   const user = await getUserByEmail(email);
+  const user = await getUserByEmail(email);
 
-//   if (!user.isVerified) {
-//     return res.json({
-//       status: "error",
-//       message:
-//         "You account has not been verified. Please check your email and verify you account before able to login!",
-//     });
-//   }
+  // if (!user.isVerified) {
+  //   return res.json({
+  //     status: "error",
+  //     message:
+  //       "Your account has not been verified. Please check your email and verify you account before able to login!",
+  //   });
+  // }
 
-//   const passFromDb = user && user._id ? user.password : null;
+  const passFromDb = user?._id ? user?.password : null;
 
-//   if (!passFromDb)
-//     return res.json({ status: "error", message: "Invalid email or password!" });
+  if (!passFromDb)
+    return res.json({ status: "error", message: "Invalid email or password!" });
 
-//   const result = await comparePassword(password, passFromDb);
+  const result = await comparePassword(password, passFromDb);
 
-//   if (!result) {
-//     return res.json({ status: "error", message: "Invalid email or password!" });
-//   }
+  if (!result) {
+    return res.json({ status: "error", message: "Invalid email or password!" });
+  }
 
-//   const accessJWT = await crateAccessJWT(user.email, `${user._id}`);
-//   const refreshJWT = await crateRefreshJWT(user.email, `${user._id}`);
+  // const accessJWT = await crateAccessJWT(user.email, `${user._id}`);
+  // const refreshJWT = await crateRefreshJWT(user.email, `${user._id}`);
 
-//   res.json({
-//     status: "success",
-//     message: "Login Successfully!",
-//     accessJWT,
-//     refreshJWT,
-//   });
-// });
+  res.json({
+    status: "success",
+    message: "Login Successfully!",
+    // accessJWT,
+    // refreshJWT,
+  });
+});
 
 // router.post("/reset-password", resetPassReqValidation, async (req, res) => {
 //   const { email } = req.body;
