@@ -12,7 +12,7 @@ const {
 } = require("../model/user/User.model");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 
-// const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
+const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
 // const {
 //   userAuthorization,
 // } = require("../middlewares/authorization.middleware");
@@ -156,14 +156,14 @@ router.post("/login", async (req, res) => {
     return res.json({ status: "error", message: "Invalid email or password!" });
   }
 
-  // const accessJWT = await crateAccessJWT(user.email, `${user._id}`);
-  // const refreshJWT = await crateRefreshJWT(user.email, `${user._id}`);
+  const accessJWT = await crateAccessJWT(user.email, `${user._id}`);
+  const refreshJWT = await crateRefreshJWT(user.email, `${user._id}`);
 
   res.json({
     status: "success",
     message: "Login Successfully!",
-    // accessJWT,
-    // refreshJWT,
+    accessJWT,
+    refreshJWT,
   });
 });
 
