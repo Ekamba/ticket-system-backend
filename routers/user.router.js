@@ -13,9 +13,9 @@ const {
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 
 const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
-// const {
-//   userAuthorization,
-// } = require("../middlewares/authorization.middleware");
+const {
+  userAuthorization,
+} = require("../middlewares/authorization.middleware");
 // const {
 //   setPasswordRestPin,
 //   getPinByEmailPin,
@@ -40,20 +40,20 @@ const { crateAccessJWT, crateRefreshJWT } = require("../helpers/jwt.helper");
 // });
 
 // Get user profile router
-// router.get("/", userAuthorization, async (req, res) => {
-//   //this data coming form database
-//   const _id = req.userId;
+router.get("/", userAuthorization, async (req, res) => {
+  //this data coming form database
+  const _id = req.userId;
 
-//   const userProf = await getUserById(_id);
-//   const { name, email } = userProf;
-//   res.json({
-//     user: {
-//       _id,
-//       name,
-//       email,
-//     },
-//   });
-// });
+  const userProf = await getUserById(_id);
+  const { name, email } = userProf;
+  res.json({
+    user: {
+      _id,
+      name,
+      email,
+    },
+  });
+});
 
 // ///very user after user is sign up
 // router.patch("/verify", async (req, res) => {
