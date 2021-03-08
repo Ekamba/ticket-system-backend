@@ -43,13 +43,13 @@ app.use(express.json());
 //Load routers
 const userRouter = require("./routers/user.router");
 const ticketRouter = require("./routers/ticket.router");
-// const tokensRouter = require("./routers/tokens.router");
+const tokensRouter = require("./routers/tokens.router");
 
 //Use Routers
 app.get("/", (req, res) => res.send("API goes here"));
 app.use("/v1/user", userRouter);
 app.use("/v1/ticket", ticketRouter);
-// app.use("/v1/tokens", tokensRouter);
+app.use("/v1/tokens", tokensRouter);
 
 // Error handler
 const handleError = require("./utils/errorHandler");
